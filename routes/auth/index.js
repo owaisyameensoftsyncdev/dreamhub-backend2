@@ -21,7 +21,7 @@ router.post("/register/email", signupWithEmail);
 router.post("/login", loginUser);
 
 
-// Admin
+//Admin
 router.post("/admin/register", adminSignup);
 router.post("/admin/login", adminLogin);
 

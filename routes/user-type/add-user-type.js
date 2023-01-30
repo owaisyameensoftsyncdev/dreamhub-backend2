@@ -10,6 +10,7 @@ const addUserType = async (req, res) => {
   try {
     const validate = await schema.validateAsync(req.body);
     const user_type = await insertNewDocument("userType", req.body);
+    console.log("helooo world.....");
  
     return res.status(200).send({ status: 200, user_type });
   } catch (e) {

@@ -27,9 +27,8 @@ const http = require("http");
 const { Server } = require("socket.io");
 const { default: axios } = require("axios");
 const { isValidURL, axiosGetCall } = require("./helpers");
-//const saveActivity = require("./middleware/activity/save-activity");
 const server = http.createServer(app);
-//const io = new Server(server, { cors: { origin: "*", methods: "*" } });
+const io = new Server(server, { cors: { origin: "*", methods: "*" } });
 
 
 
@@ -64,7 +63,7 @@ app.use(
   (req, res, next) => {
     req.web3 = web3;
     req.Web3 = Web3;
-   // req.io = io;
+   req.io = io;
 
     // req.gfs = gfs;
     next();
@@ -80,15 +79,15 @@ app.get("/", async (req, res, next) => {
 });
 
 
-// io.on("connection", (socket) => {
-//   //when connect
-//   console.log("New client connected with id: ", socket.id);
+io.on("connection", (socket) => {
+  //when connect
+  console.log("New client connected with id: ", socket.id);
 
   //when disconnect
-//   socket.on("disconnect", () => {
-//     console.log("a user disconnected!", socket.id);
-//   });
- //});
+  socket.on("disconnect", () => {
+    console.log("a user disconnected!", socket.id);
+  });
+ });
 
 app.use("*", (req, res) => {
   res.status(404).send("Route not found");

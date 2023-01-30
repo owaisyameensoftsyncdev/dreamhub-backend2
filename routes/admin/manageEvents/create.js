@@ -6,7 +6,7 @@ const cloudinary = require("cloudinary").v2;
 
 
 const schema = Joi.object({
-   
+
     organizerName: Joi.string(),
     personName: Joi.string(),
     eventName: Joi.string(),
@@ -18,10 +18,10 @@ const schema = Joi.object({
     banner_img_url: Joi.string(),
 });
 
-const createEvent = async (req, res) => {
+const manageEvent = async (req, res) => {
     try {
         await schema.validateAsync(req.body);
-
+        
 //const { endDate } = req.body
         // let event = await findOne("event", { _id });
         // if (!event) {
@@ -48,7 +48,7 @@ console.log(result, "resukt...");
             endDate: req.body.endDate,
             banner_img: result.secure_url,
             banner_img_url: result.public_id,
-  //          endDate:newDate
+            //endDate:newDate
         });
 
 
@@ -68,7 +68,7 @@ console.log(result, "resukt...");
     }
 };
 
-module.exports = createEvent;
+module.exports = manageEvent;
 
 
 // location get /find near location

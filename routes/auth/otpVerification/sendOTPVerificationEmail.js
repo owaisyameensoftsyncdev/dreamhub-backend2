@@ -1,4 +1,4 @@
-const { UserOTPVerification } = require("../../../models");
+const { UserOTPVerification } = require("../../../models/otpVerification/index");
 const bcrypt = require("bcryptjs");
 const { send_email } = require("../../../lib/node-mailer/index");
 const { insertNewDocument } = require("../../../helpers/index");
@@ -19,6 +19,8 @@ const sendOTPVerificationEmail = async (req, res) => {
     const saltRounds = 10;
 
     const hashedOTP = await bcrypt.hash(otp, saltRounds);
+
+    console.log(hashedOTP, "hashedotp...");
 
     const newOtpVerification = new UserOTPVerification({
       userId: _id,
@@ -53,6 +55,7 @@ const sendOTPVerificationEmail = async (req, res) => {
         email,
       },
     });
+
   } catch (error) {
     res.status(500).json({
       status: "Failed",

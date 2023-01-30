@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const { findOne, updateDocument } = require("../../../helpers");
-const ProfileSchema = require("../../../models/Profile/profile-schema");
+const profile = require("../../../models/Profile/index");
 const cloudinary = require("cloudinary").v2;
 
 const schema = Joi.object({
@@ -20,24 +20,30 @@ const updateProfile = async (req, res) => {
         await schema.validateAsync(req.body);
         console.log(req.body);
         console.log(req.file);
-        const { email } = req.body;
+       // const { email } = req.body;
         const _id = req.params.id;
-        let user = await findOne("profile", { _id });
-        if (!user) {
+
+        let profile = await findOne("profile", { _id });
+        if (!profile) {
             return res.status(400).send({ status: 400, message: "No User Found" });
         }
-        if (email) {
-            let check_email = await findOne("profile", { email });
-            if (check_email) {
-                if (user.email !== email) {
-                    return res.status(400).send({
-                        status: 400,
-                        message: "User already exist with this email",
-                    });
-                }
-            }
-        }
-        await cloudinary.uploader.destroy(profile.profile_img_url);
+        // if (email) {
+        //     let check_email = await findOne("profile", { email });
+        //     if (check_email) {
+        //         if (user.email !== email) {
+        //             return res.status(400).send({
+        //                 status: 400,
+        //                 message: "User already exist with this email",
+        //             });
+        //         }
+        //     }
+        // }
+        
+console.log(profile, "user....");
+
+      const deleteId =  await cloudinary.uploader.destroy(profile.profile_img_url, function (error, result) {
+         console.log(result, error);        
+      });
         // if (req?.files?.profile_img?.path) {
         //     const profileImage = await cloudinary.uploader.upload(
         //         req?.files?.profile_img?.path
@@ -46,8 +52,11 @@ const updateProfile = async (req, res) => {
             
         // }
        
-       
+       console.log(deleteId, "delete...");
+
         const result = await cloudinary.uploader.upload(req.file.path);
+
+        console.log(result, "result....");
 
         const data = {
             username: req.body.username || profile.username,
@@ -60,7 +69,7 @@ const updateProfile = async (req, res) => {
             profile_img_url: result.public_id || profile.profile_img_url,
         }
      
-        userProfile = await updateDocument("profile", { _id }, data);
+        userProfile = await updateDocument("profile", { _id }, data );
 
         return res
             .status(200)
