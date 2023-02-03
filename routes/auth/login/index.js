@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { SECRET } = require("../../../config");
+//const sendOTPVerificationEmail = require("../otpVerification/sendOTPVerificationEmail");
 
 const {
   findOne,
@@ -121,7 +122,7 @@ const loginUser = async (req, res) => {
             {
               no_of_attempt: updateAttempt.no_of_attempt + 1,
             }
-          );
+         );
 
         return res
           .status(400)
@@ -178,19 +179,19 @@ const loginUser = async (req, res) => {
       req.userId = user._id;
 
 
-      // sendOTPVerificationEmail(result, res);
-
+    //  await sendOTPVerificationEmail(req, res)
 
       return res.status(200).send({ status: 200, user, token, });
 
 
-    } else {
+     } 
+    else {
       return res
         .status(404)
         .send({ status: 404, message: "User does not exist!" });
     }
   } catch (e) {
-    res.status(400).send({ status: 400, message: e.message });
+    res.status(400).send({ status: 400, message: e.message, });
   }
 };
 

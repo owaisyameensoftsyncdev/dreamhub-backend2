@@ -76,7 +76,7 @@ const eventList = async (req, res) => {
         }
 
 
-        return res.status(200).send({ status: 200, profileBanner, futureEvent, pastEvent });
+        return res.status(200).send({ status: 200, profileBanner, futureEvent, pastEvent,todayEvent });
 
     } catch (e) {
         console.log(e);

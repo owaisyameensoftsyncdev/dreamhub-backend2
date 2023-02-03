@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const UserOTPVerificationSchema = require("./userOTPVerification");
 
-const UserOTPVerification = mongoose.model("UserOTPVerification", UserOTPVerificationSchema);
+const userOTPVerification = mongoose.model("userOTPVerification", UserOTPVerificationSchema);
 
-module.exports = UserOTPVerification ;
+module.exports = userOTPVerification ;

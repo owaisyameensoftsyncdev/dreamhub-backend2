@@ -14,6 +14,7 @@ const schema = Joi.object({
     loc: Joi.string(),
     startDate: Joi.date().raw().required(),
     endDate: Joi.date().raw().required(),
+    status:Joi.string(),
     banner_img: Joi.string(),
     banner_img_url: Joi.string(),
 });
@@ -46,6 +47,7 @@ console.log(result, "resukt...");
             loc: req.body.loc,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
+            status: req.body.status,
             banner_img: result.secure_url,
             banner_img_url: result.public_id,
             //endDate:newDate

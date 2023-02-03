@@ -7,17 +7,17 @@ const userSchema = new mongoose.Schema(
       type: schemaType.TypeString,
      
     },
-    first_Name: {
-      type: schemaType.TypeString,
-    },
+    // first_Name: {
+    //   type: schemaType.TypeString,
+    // },
 
-    last_Name: {
-      type: schemaType.TypeString,
-    },
+    // last_Name: {
+    //   type: schemaType.TypeString,
+    // },
 
-    full_Name: {
-      type: schemaType.TypeString,
-    },
+    // full_Name: {
+    //   type: schemaType.TypeString,
+    // },
 
     email: {
       type: schemaType.TypeString,

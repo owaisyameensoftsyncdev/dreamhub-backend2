@@ -7,11 +7,11 @@ const resendOTPVerificationCode = async (req, res) => {
     if (!userId || !email) {
       throw new Error("Empty user details are not allowed");
     } else {
-      const deleteOtp = await deleteManyDocument("UserOTPVerification", {
+      const deleteOtp = await deleteManyDocument("userOTPVerification", {
         userId,
       });
       
-      sendOTPVerificationEmail({ _id: userId, email }, res);
+    await  sendOTPVerificationEmail(req, res);
 
 
       return res

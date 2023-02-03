@@ -8,9 +8,10 @@ db.mongoose = mongoose;
 db.user = require("./user");
 db.profile = require("./Profile");
 db.userType = require("./user-type");
-db.UserOTPVerification = require("./otpVerification");
-db.attempt = require('./attempt')
-db.event = require('./event')
+db.userOTPVerification = require("./otpVerification");
+db.attempt = require('./attempt');
+db.event = require('./event');
+db.token = require('./token');
 
 
 module.exports = db;

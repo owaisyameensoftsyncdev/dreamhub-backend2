@@ -1,4 +1,6 @@
-const { findOne, find, getAggregate } = require("../../../helpers");
+const { findOne, find, getAggregate, findOneAndSelect } = require("../../../helpers");
+const user = require("../../../models/user/index");
+const event = require("../../../models/event/index")
 const { ObjectID } = require("../../../types");
 
 const popEvent = async (req, res) => {
@@ -29,7 +31,7 @@ const popEvent = async (req, res) => {
         const eventList = await find("event");
 
 
-        let futureEvent = eventList.filter(obj => new Date(obj.timeMin).toDateString() > new Date().toDateString())
+        let futureEvent = eventList.filter(obj => new Date(obj.timeMin).toDateString() === new Date().toDateString())
 
       
         // console.log(eventList);
@@ -40,29 +42,77 @@ const popEvent = async (req, res) => {
             return res.status(404).send({ status: 404, message: "No events Found" });
         }
 
-
-
-const eventTime = await getAggregate("event",
-[{
-    $project:
-    {
-    //   year: { $year: "$timeMin" },
-    //   month: { $month: "$timeMin" },
-    //   day: { $dayOfMonth: "$timeMin" },
-     _id: 0,
-      hour: { $hour: "$timeMin" },
-    //   minutes: { $minute: "$timeMin" },
-    //   seconds: { $second: "$timeMin" },
-    //   milliseconds: { $millisecond: "$timeMin" },
-    //   dayOfYear: { $dayOfYear: "$timeMin" },
-    //   dayOfWeek: { $dayOfWeek: "$timeMin" }
-    }
-}])
+//        const dateList = event.aggregate([
+//         {
+//             $match:{status:'active'},
+//         $project: {startDate:1, endDate:1}},
+//        }
+//     ])
         
 
-console.log(eventTime);
+// console.log(dateList,"datelist...");
+// const eventTime = await getAggregate("event",
+// [{
+//     $project:
+//     {
+//     //   year: { $year: "$timeMin" },
+//     //   month: { $month: "$timeMin" },
+//     //   day: { $dayOfMonth: "$timeMin" },
+//      _id: 0,
+//       hour: { $hour: "$timeMin" },
+//     //   minutes: { $minute: "$timeMin" },
+//     //   seconds: { $second: "$timeMin" },
+//     //   milliseconds: { $millisecond: "$timeMin" },
+//     //   dayOfYear: { $dayOfYear: "$timeMin" },
+//     //   dayOfWeek: { $dayOfWeek: "$timeMin" }
+//     }
+// }])
+        
 
-        return res.status(200).send({ status: 200, futureEvent, eventTime });
+// const eventTime = await getAggregate("event",
+// [{
+//     $project:
+//     {
+//     //   year: { $year: "$timeMin" },
+//     //   month: { $month: "$timeMin" },
+//     //   day: { $dayOfMonth: "$timeMin" },
+     
+//       hour: { $hour: "$startDate" },
+//        hour1: { $hour: "$endDate" }
+//     //   minutes: { $minute: "$timeMin" },
+//     //   seconds: { $second: "$timeMin" },
+//     //   milliseconds: { $millisecond: "$timeMin" },
+//     //   dayOfYear: { $dayOfYear: "$timeMin" },
+//     //   dayOfWeek: { $dayOfWeek: "$timeMin" }
+//     }
+// }])
+
+
+//console.log(eventTime);
+
+
+
+// const endTime = await getAggregate("event",
+// [{
+//     $project:
+//     {
+//     //   year: { $year: "$timeMin" },
+//     //   month: { $month: "$timeMin" },
+//     //   day: { $dayOfMonth: "$timeMin" },
+//      _id: 0,
+//       hour: { $hour: "$endDate" },
+//     //   hour: { $hour: "$endDate" },
+//     //   minutes: { $minute: "$timeMin" },
+//     //   seconds: { $second: "$timeMin" },
+//     //   milliseconds: { $millisecond: "$timeMin" },
+//     //   dayOfYear: { $dayOfYear: "$timeMin" },
+//     //   dayOfWeek: { $dayOfWeek: "$timeMin" }
+//     }
+// }])
+
+// console.log(endTime);
+
+        return res.status(200).send({ status: 200, futureEvent});
 
     } catch (e) {
         console.log(e);

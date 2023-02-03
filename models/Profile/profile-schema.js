@@ -22,7 +22,7 @@ const profileSchema = new mongoose.Schema(
             type: SchemaType.TypeString,
             enum: ["Male", "Female", "Other"]
         },
-        address: {
+        preference: {
             type: SchemaType.TypeString,
         },
         profile_img: {

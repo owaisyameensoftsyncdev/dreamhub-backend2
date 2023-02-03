@@ -10,7 +10,7 @@ const schema = Joi.object({
     wallet: Joi.string(),
     city: Joi.string(),
     gender: Joi.string(),
-    address: Joi.string(),
+    preference: Joi.string(),
     profile_img: Joi.string(),
     profile_img_url: Joi.string(),
 });
@@ -64,7 +64,7 @@ console.log(profile, "user....");
             wallet: req.body.wallet || profile.wallet,
             city: req.body.city || profile.city,
             gender: req.body.gender || profile.gender,
-            address: req.body.address || profile.username.address,
+            preference: req.body.preference || profile.username.preference,
             profile_img: result.secure_url || profile.profile_img,
             profile_img_url: result.public_id || profile.profile_img_url,
         }
